@@ -1,6 +1,6 @@
 import './Main.scss';
-import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 import { HiOutlinePlus } from 'react-icons/hi';
+import { TaskApp } from './TaskApp/TaskApp';
 
 export const Main = (): JSX.Element => {
   return (
@@ -14,14 +14,7 @@ export const Main = (): JSX.Element => {
         </div>
       </div>
       <div className="tasksContainer">
-        <ul>
-          <li className="listItem">
-            <FormGroup>
-              <FormControlLabel control={<Checkbox defaultChecked color="success" />} label="" />
-            </FormGroup>
-            что-то сделать
-          </li>
-        </ul>
+        <TaskApp />
       </div>
     </div>
   );

@@ -29,13 +29,3 @@ text {
 .icon {
   margin-right: 10px;
 }
-.listItem {
-  height: 70px;
-  display: flex;
-  align-items: center;
-  padding-left: 20px;
-  background-color: adjust-hue($color: #832222, $degrees: 0);
-  font-size: 33px;
-  color: aliceblue;
-  cursor: pointer;
-}

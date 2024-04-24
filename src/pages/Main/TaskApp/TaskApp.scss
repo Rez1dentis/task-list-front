@@ -1,0 +1,18 @@
+.listItem {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 20px;
+  background-color: adjust-hue($color: #b85050, $degrees: 0);
+  font-size: 33px;
+  color: aliceblue;
+  cursor: pointer;
+}
+.text {
+  flex-grow: 1;
+}
+.iconsBlock {
+  display: flex;
+  margin-right: 15px;
+}
