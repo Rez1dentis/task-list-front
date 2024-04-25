@@ -1,21 +1,20 @@
-import './Main.scss';
+import classes from './Main.module.scss';
 import { HiOutlinePlus } from 'react-icons/hi';
 import { TaskApp } from './TaskApp/TaskApp';
 
 export const Main = (): JSX.Element => {
   return (
-    <div className="mainContainer">
-      <div className="header">
-        <div className="title">
-          <text>Task List</text>
-        </div>
-        <div className="icon">
+    <div className={classes.mainContainer}>
+      <div className={classes.header}>
+        <div className={classes.title}>Task List</div>
+        <div className={classes.icon}>
           <HiOutlinePlus style={{ width: 45, height: 45, color: 'white', cursor: 'pointer' }} />
         </div>
       </div>
-      <div className="tasksContainer">
+      <div className={classes.tasksContainer}>
         <TaskApp />
       </div>
+      <div className={classes.footer} />
     </div>
   );
 };
