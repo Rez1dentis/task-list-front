@@ -5,9 +5,9 @@ import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 import { useState } from 'react';
 import { Reorder } from 'framer-motion';
 import { ITask } from '../../../models/taskListModel';
-import { AddModal } from '../../AddModal/AddModal';
 import { HiOutlinePlus } from 'react-icons/hi';
 import { tasksData } from './mockData';
+import { TaskModal } from '../../TaskModal/TaskModal';
 
 export const TaskApp = (): JSX.Element => {
   const [open, setOpen] = useState(false);
@@ -52,7 +52,7 @@ export const TaskApp = (): JSX.Element => {
           </Reorder.Item>
         ))}
       </Reorder.Group>
-      <AddModal setTasks={setTasks} tasks={tasks} open={open} onClose={addModalClose} />
+      <TaskModal setTasks={setTasks} tasks={tasks} open={open} onClose={addModalClose} />
     </>
   );
 };

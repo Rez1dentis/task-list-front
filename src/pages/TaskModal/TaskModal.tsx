@@ -1,4 +1,4 @@
-import classes from './AddModal.module.scss';
+import classes from './TaskModal.module.scss';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { Button, TextField } from '@mui/material';
@@ -27,7 +27,7 @@ interface IProps {
   setTasks: Dispatch<SetStateAction<ITask[]>>;
 }
 
-export const AddModal = ({ open, onClose, tasks, setTasks }: IProps): JSX.Element => {
+export const TaskModal = ({ open, onClose, tasks, setTasks }: IProps): JSX.Element => {
   const [inputValue, setinputValue] = useState<string>('');
 
   const addTaskHandler = (e: ChangeEvent<HTMLInputElement>) => {
