@@ -16,11 +16,11 @@ export const TaskApp = (): JSX.Element => {
   const [inputValue, setinputValue] = useState<string>('');
   const [editTask, setEditTask] = useState<ITask | null>(null);
 
-  const addModalOpen = (task: ITask | null = null) => {
+  const isOpenModal = (task: ITask | null = null) => {
     setOpen(true);
     setEditTask(task);
   };
-  const addModalClose = () => setOpen(false);
+  const isCloseModal = () => setOpen(false);
 
   const addTaskHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setinputValue(e.target.value);
@@ -55,7 +55,7 @@ export const TaskApp = (): JSX.Element => {
     }
 
     setinputValue('');
-    addModalClose();
+    isCloseModal();
   };
 
   return (
@@ -64,7 +64,7 @@ export const TaskApp = (): JSX.Element => {
         <div className={classes.title}>Task List</div>
         <div className={classes.icon}>
           <HiOutlinePlus
-            onClick={() => addModalOpen()}
+            onClick={() => isOpenModal()}
             style={{ width: 45, height: 45, color: 'white', cursor: 'pointer' }}
           />
         </div>
@@ -77,13 +77,13 @@ export const TaskApp = (): JSX.Element => {
               <li className={classes.listItem}>
                 <FormGroup>
                   <FormControlLabel
-                    control={<Checkbox checked={task.isCompleted} color="success" />}
+                    control={<Checkbox sx={{ color: "aliceblue" }} size='large' defaultChecked />}
                     label=""
                   />
                 </FormGroup>
                 <div className={classes.text}>{task.name}</div>
                 <div className={classes.iconsBlock}>
-                  <CiEdit onClick={() => addModalOpen(task)} style={{ marginRight: 15 }} />
+                  <CiEdit onClick={() => isOpenModal(task)} style={{ marginRight: 15 }} />
                   <TiDeleteOutline onClick={() => deleteTaskHandler(task.id)} />
                 </div>
               </li>
@@ -92,7 +92,6 @@ export const TaskApp = (): JSX.Element => {
         ))}
       </Reorder.Group>
       </div>
-      
       <TaskModal
         setinputValue={setinputValue}
         editTask={editTask}
@@ -100,7 +99,7 @@ export const TaskApp = (): JSX.Element => {
         onSaveHandler={onSaveHandler}
         inputValue={inputValue}
         open={open}
-        onClose={addModalClose}
+        onClose={isCloseModal}
       />
     </>
   );
