@@ -69,6 +69,7 @@ export const TaskApp = (): JSX.Element => {
           />
         </div>
       </div>
+      <div className={classes.listBox}>
       <Reorder.Group values={tasks} onReorder={setTasks}>
         {tasks.map((task) => (
           <Reorder.Item key={task.id} value={task}>
@@ -90,6 +91,8 @@ export const TaskApp = (): JSX.Element => {
           </Reorder.Item>
         ))}
       </Reorder.Group>
+      </div>
+      
       <TaskModal
         setinputValue={setinputValue}
         editTask={editTask}
