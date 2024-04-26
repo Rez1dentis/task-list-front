@@ -53,12 +53,12 @@ export const TaskModal = ({
             onChange={addTaskHandler}
             className={classes.input}
             id="standard-basic"
-            label="Введите название"
+            label={editTask ? '' : 'Введите название задачи'}
             variant="standard"
             fullWidth
           />
           <Button onClick={onSaveHandler} className={classes.saveButton} variant="outlined">
-            Сохранить
+            {editTask ? 'Изменить' : 'Сохранить'}
           </Button>
         </Box>
       </Modal>

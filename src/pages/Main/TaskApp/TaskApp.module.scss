@@ -26,7 +26,7 @@
 .listItem {
   @include centered-flex;
   height: 70px;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
   padding-left: 20px;
   border: 1px solid rgb(48, 47, 47);
   background-color: adjust-hue($color: #2b5074, $degrees: 0);

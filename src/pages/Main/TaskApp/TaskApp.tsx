@@ -26,6 +26,10 @@ export const TaskApp = (): JSX.Element => {
     setinputValue(e.target.value);
   };
 
+  const deleteTaskHandler = (id: string) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
   const onSaveHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -52,10 +56,6 @@ export const TaskApp = (): JSX.Element => {
 
     setinputValue('');
     addModalClose();
-  };
-
-  const deleteTaskHandler = (id: string) => {
-    setTasks(tasks.filter((task) => task.id !== id));
   };
 
   return (
