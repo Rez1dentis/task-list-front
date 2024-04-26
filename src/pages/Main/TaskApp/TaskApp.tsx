@@ -5,43 +5,54 @@ import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 import { useState } from 'react';
 import { Reorder } from 'framer-motion';
 import { ITask } from '../../../models/taskListModel';
+import { AddModal } from '../../AddModal/AddModal';
+import { HiOutlinePlus } from 'react-icons/hi';
+import { tasksData } from './mockData';
 
 export const TaskApp = (): JSX.Element => {
-  const [tasks, setTasks] = useState<ITask[]>([
-    { id: '1', name: 'потрахаться с мальчишками' },
-    { id: '2', name: 'сделать куни' },
-    { id: '3', name: 'пососать в Таркове бесплатно' },
-    { id: '4', name: 'Послеобеденный римминг' },
-    { id: '5', name: 'Посидеть на бутылке' },
-    { id: '6', name: 'Выбрать стул (один из двух)' },
-    { id: '7', name: 'посидеть на коленках у Деда' },
-    { id: '8', name: 'покушать' },
-    { id: '9', name: 'додо пицца' },
-  ]);
+  const [open, setOpen] = useState(false);
+  const [tasks, setTasks] = useState<ITask[]>(tasksData);
+
+  const addModalOpen = () => setOpen(true);
+  const addModalClose = () => setOpen(false);
+
+  const deleteTaskHandler = (id: string) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
 
   return (
     <>
+      <div className={classes.header}>
+        <div className={classes.title}>Task List</div>
+        <div className={classes.icon}>
+          <HiOutlinePlus
+            onClick={addModalOpen}
+            style={{ width: 45, height: 45, color: 'white', cursor: 'pointer' }}
+          />
+        </div>
+      </div>
       <Reorder.Group values={tasks} onReorder={setTasks}>
         {tasks.map((task) => (
-          <Reorder.Item value={task} key={task.id}>
+          <Reorder.Item key={task.id} value={task}>
             <ul>
               <li className={classes.listItem}>
                 <FormGroup>
                   <FormControlLabel
-                    control={<Checkbox defaultChecked color="success" />}
+                    control={<Checkbox checked={task.isCompleted} color="success" />}
                     label=""
                   />
                 </FormGroup>
                 <div className={classes.text}>{task.name}</div>
                 <div className={classes.iconsBlock}>
                   <CiEdit style={{ marginRight: 15 }} />
-                  <TiDeleteOutline />
+                  <TiDeleteOutline onClick={() => deleteTaskHandler(task.id)} />
                 </div>
               </li>
             </ul>
           </Reorder.Item>
         ))}
       </Reorder.Group>
+      <AddModal setTasks={setTasks} tasks={tasks} open={open} onClose={addModalClose} />
     </>
   );
 };
