@@ -1,19 +1,45 @@
-.listItem {
-  height: 70px;
+@mixin centered-flex {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+}
+
+.header {
+  @include centered-flex;
+  height: 100px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-color: adjust-hue($color: #282c2e, $degrees: 0);
+
+  .title {
+    text-align: center;
+    flex-grow: 1;
+    font-size: 52px;
+    color: aliceblue;
+  }
+
+  .icon {
+    margin-right: 10px;
+  }
+}
+
+.listItem {
+  @include centered-flex;
+  height: 70px;
+  margin-bottom: 8px;
   padding-left: 20px;
   border: 1px solid rgb(48, 47, 47);
-  background-color: adjust-hue($color: #b85050, $degrees: 0);
+  background-color: adjust-hue($color: #2b5074, $degrees: 0);
   font-size: 33px;
   color: aliceblue;
   cursor: pointer;
-}
-.text {
-  flex-grow: 1;
-}
-.iconsBlock {
-  display: flex;
-  margin-right: 15px;
+
+  .text {
+    flex-grow: 1;
+  }
+
+  .iconsBlock {
+    display: flex;
+    margin-right: 15px;
+  }
 }
