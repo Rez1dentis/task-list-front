@@ -2,19 +2,57 @@ import classes from './TaskApp.module.scss';
 import { CiEdit } from 'react-icons/ci';
 import { TiDeleteOutline } from 'react-icons/ti';
 import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
-import { useState } from 'react';
+import { ChangeEvent, MouseEvent, useState } from 'react';
 import { Reorder } from 'framer-motion';
 import { ITask } from '../../../models/taskListModel';
 import { HiOutlinePlus } from 'react-icons/hi';
 import { tasksData } from './mockData';
 import { TaskModal } from '../../TaskModal/TaskModal';
+import { v4 as uuidv4 } from 'uuid';
 
 export const TaskApp = (): JSX.Element => {
   const [open, setOpen] = useState(false);
   const [tasks, setTasks] = useState<ITask[]>(tasksData);
+  const [inputValue, setinputValue] = useState<string>('');
+  const [editTask, setEditTask] = useState<ITask | null>(null);
 
-  const addModalOpen = () => setOpen(true);
+  const addModalOpen = (task: ITask | null = null) => {
+    setOpen(true);
+    setEditTask(task);
+  };
   const addModalClose = () => setOpen(false);
+
+  const addTaskHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setinputValue(e.target.value);
+  };
+
+  const onSaveHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if (editTask) {
+      setTasks(
+        tasks.map((task) => {
+          if (task.id === editTask.id) {
+            return { ...task, name: inputValue };
+          }
+          return task;
+        }),
+      );
+    } else {
+      const newTask: ITask = {
+        id: uuidv4(),
+        name: inputValue,
+        isCompleted: false,
+      };
+
+      if (inputValue.trim() !== '') {
+        setTasks([...tasks, newTask]);
+      }
+    }
+
+    setinputValue('');
+    addModalClose();
+  };
 
   const deleteTaskHandler = (id: string) => {
     setTasks(tasks.filter((task) => task.id !== id));
@@ -26,7 +64,7 @@ export const TaskApp = (): JSX.Element => {
         <div className={classes.title}>Task List</div>
         <div className={classes.icon}>
           <HiOutlinePlus
-            onClick={addModalOpen}
+            onClick={() => addModalOpen()}
             style={{ width: 45, height: 45, color: 'white', cursor: 'pointer' }}
           />
         </div>
@@ -44,7 +82,7 @@ export const TaskApp = (): JSX.Element => {
                 </FormGroup>
                 <div className={classes.text}>{task.name}</div>
                 <div className={classes.iconsBlock}>
-                  <CiEdit style={{ marginRight: 15 }} />
+                  <CiEdit onClick={() => addModalOpen(task)} style={{ marginRight: 15 }} />
                   <TiDeleteOutline onClick={() => deleteTaskHandler(task.id)} />
                 </div>
               </li>
@@ -52,7 +90,15 @@ export const TaskApp = (): JSX.Element => {
           </Reorder.Item>
         ))}
       </Reorder.Group>
-      <TaskModal setTasks={setTasks} tasks={tasks} open={open} onClose={addModalClose} />
+      <TaskModal
+        setinputValue={setinputValue}
+        editTask={editTask}
+        addTaskHandler={addTaskHandler}
+        onSaveHandler={onSaveHandler}
+        inputValue={inputValue}
+        open={open}
+        onClose={addModalClose}
+      />
     </>
   );
 };

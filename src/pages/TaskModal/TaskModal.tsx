@@ -2,9 +2,8 @@ import classes from './TaskModal.module.scss';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { Button, TextField } from '@mui/material';
-import { ChangeEvent, Dispatch, MouseEvent, SetStateAction, useState } from 'react';
+import { ChangeEvent, Dispatch, MouseEvent, SetStateAction, useEffect } from 'react';
 import { ITask } from '../../models/taskListModel';
-import { v4 as uuidv4 } from 'uuid';
 
 const style = {
   position: 'absolute' as const,
@@ -23,32 +22,27 @@ const style = {
 interface IProps {
   open: boolean;
   onClose: () => void;
-  tasks: ITask[];
-  setTasks: Dispatch<SetStateAction<ITask[]>>;
+  inputValue: string;
+  addTaskHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSaveHandler: (e: MouseEvent<HTMLButtonElement>) => void;
+  editTask: ITask | null;
+  setinputValue: Dispatch<SetStateAction<string>>;
 }
 
-export const TaskModal = ({ open, onClose, tasks, setTasks }: IProps): JSX.Element => {
-  const [inputValue, setinputValue] = useState<string>('');
-
-  const addTaskHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setinputValue(e.target.value);
-  };
-
-  const onSaveHandler = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
-    const newTask: ITask = {
-      id: uuidv4(),
-      name: inputValue,
-      isCompleted: false,
-    };
-
-    if (inputValue !== '') {
-      setTasks([...tasks, newTask]);
+export const TaskModal = ({
+  open,
+  onClose,
+  inputValue,
+  addTaskHandler,
+  onSaveHandler,
+  editTask,
+  setinputValue,
+}: IProps): JSX.Element => {
+  useEffect(() => {
+    if (editTask) {
+      setinputValue(editTask.name);
     }
-
-    setinputValue('');
-  };
+  }, [editTask]);
 
   return (
     <div className={classes.modalContainer}>
