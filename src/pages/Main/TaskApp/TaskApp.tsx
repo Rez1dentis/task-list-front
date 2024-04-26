@@ -33,6 +33,16 @@ export const TaskApp = (): JSX.Element => {
   const onSaveHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    const newTask: ITask = {
+      id: uuidv4(),
+      name: inputValue,
+      isCompleted: false,
+    };
+
+    if (inputValue.trim() !== '') {
+      setTasks([...tasks, newTask]);
+    }
+
     if (editTask) {
       setTasks(
         tasks.map((task) => {
@@ -42,16 +52,6 @@ export const TaskApp = (): JSX.Element => {
           return task;
         }),
       );
-    } else {
-      const newTask: ITask = {
-        id: uuidv4(),
-        name: inputValue,
-        isCompleted: false,
-      };
-
-      if (inputValue.trim() !== '') {
-        setTasks([...tasks, newTask]);
-      }
     }
 
     setinputValue('');
@@ -70,27 +70,27 @@ export const TaskApp = (): JSX.Element => {
         </div>
       </div>
       <div className={classes.listBox}>
-      <Reorder.Group values={tasks} onReorder={setTasks}>
-        {tasks.map((task) => (
-          <Reorder.Item key={task.id} value={task}>
-            <ul>
-              <li className={classes.listItem}>
-                <FormGroup>
-                  <FormControlLabel
-                    control={<Checkbox sx={{ color: "aliceblue" }} size='large' defaultChecked />}
-                    label=""
-                  />
-                </FormGroup>
-                <div className={classes.text}>{task.name}</div>
-                <div className={classes.iconsBlock}>
-                  <CiEdit onClick={() => isOpenModal(task)} style={{ marginRight: 15 }} />
-                  <TiDeleteOutline onClick={() => deleteTaskHandler(task.id)} />
-                </div>
-              </li>
-            </ul>
-          </Reorder.Item>
-        ))}
-      </Reorder.Group>
+        <Reorder.Group values={tasks} onReorder={setTasks}>
+          {tasks.map((task) => (
+            <Reorder.Item key={task.id} value={task}>
+              <ul>
+                <li className={classes.listItem}>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={<Checkbox sx={{ color: 'aliceblue' }} size="large" defaultChecked />}
+                      label=""
+                    />
+                  </FormGroup>
+                  <div className={classes.text}>{task.name}</div>
+                  <div className={classes.iconsBlock}>
+                    <CiEdit onClick={() => isOpenModal(task)} style={{ marginRight: 15 }} />
+                    <TiDeleteOutline onClick={() => deleteTaskHandler(task.id)} />
+                  </div>
+                </li>
+              </ul>
+            </Reorder.Item>
+          ))}
+        </Reorder.Group>
       </div>
       <TaskModal
         setinputValue={setinputValue}
