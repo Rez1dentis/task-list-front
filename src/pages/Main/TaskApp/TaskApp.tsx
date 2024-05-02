@@ -1,6 +1,6 @@
 import classes from './TaskApp.module.scss';
-import { CiEdit } from 'react-icons/ci';
-import { TiDeleteOutline } from 'react-icons/ti';
+import { AiOutlineEdit } from 'react-icons/ai';
+import { RiDeleteBinLine } from 'react-icons/ri';
 import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 import { ChangeEvent, MouseEvent, useState } from 'react';
 import { Reorder } from 'framer-motion';
@@ -77,14 +77,19 @@ export const TaskApp = (): JSX.Element => {
                 <li className={classes.listItem}>
                   <FormGroup>
                     <FormControlLabel
-                      control={<Checkbox sx={{ color: 'aliceblue' }} size="large" defaultChecked />}
+                      control={
+                        <Checkbox size="medium" defaultChecked={task.isCompleted || false} />
+                      }
                       label=""
                     />
                   </FormGroup>
                   <div className={classes.text}>{task.name}</div>
                   <div className={classes.iconsBlock}>
-                    <CiEdit onClick={() => isOpenModal(task)} style={{ marginRight: 15 }} />
-                    <TiDeleteOutline onClick={() => deleteTaskHandler(task.id)} />
+                    <AiOutlineEdit onClick={() => isOpenModal(task)} style={{ marginRight: 15 }} />
+                    <RiDeleteBinLine
+                      style={{ width: 27, height: 27 }}
+                      onClick={() => deleteTaskHandler(task.id)}
+                    />
                   </div>
                 </li>
               </ul>
