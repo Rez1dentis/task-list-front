@@ -2,8 +2,7 @@ import classes from './TaskModal.module.scss';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { Button, TextField } from '@mui/material';
-import { ChangeEvent, Dispatch, MouseEvent, SetStateAction, useEffect } from 'react';
-import { ITask } from '../../models/taskListModel';
+import { ChangeEvent, MouseEvent } from 'react';
 
 const style = {
   position: 'absolute' as const,
@@ -23,42 +22,31 @@ interface IProps {
   open: boolean;
   onClose: () => void;
   inputValue: string;
-  addTaskHandler: (e: ChangeEvent<HTMLInputElement>) => void;
-  onSaveHandler: (e: MouseEvent<HTMLButtonElement>) => void;
-  editTask: ITask | null;
-  setinputValue: Dispatch<SetStateAction<string>>;
+  changeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+  editHandler: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const TaskModal = ({
   open,
   onClose,
   inputValue,
-  addTaskHandler,
-  onSaveHandler,
-  editTask,
-  setinputValue,
+  changeHandler,
+  editHandler,
 }: IProps): JSX.Element => {
-  useEffect(() => {
-    if (editTask) {
-      setinputValue(editTask.name);
-    }
-  }, [editTask]);
-
   return (
     <div className={classes.modalContainer}>
       <Modal open={open} onClose={onClose}>
         <Box sx={style}>
           <TextField
             value={inputValue}
-            onChange={addTaskHandler}
+            onChange={changeHandler}
             className={classes.input}
             id="standard-basic"
-            label={editTask ? '' : 'Введите название задачи'}
             variant="standard"
             fullWidth
           />
-          <Button onClick={onSaveHandler} className={classes.saveButton} variant="outlined">
-            {editTask ? 'Изменить' : 'Сохранить'}
+          <Button onClick={editHandler} className={classes.saveButton} variant="outlined">
+            Изменить
           </Button>
         </Box>
       </Modal>
