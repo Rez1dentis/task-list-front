@@ -1,25 +1,49 @@
-@mixin centered-flex {
+@mixin centered-items {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
 .header {
-  @include centered-flex;
-  height: 100px;
+  height: 150px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   background-color: #7685da;
+  text-align: center;
 
   .title {
-    text-align: center;
     flex-grow: 1;
     font-size: 52px;
     color: aliceblue;
   }
 
-  .icon {
-    margin-right: 10px;
+  .addContaioner {
+    @include centered-items;
+    justify-content: center;
+  }
+
+  .inputWrapper {
+    @include centered-items;
+    width: 100%;
+    max-width: 400px;
+    margin-right: 5px;
+    border: 2px solid #7685da;
+    border-radius: 3px;
+    position: relative;
+    transition: all 0.35s ease-out;
+
+    .input {
+      padding: 8px;
+      width: 100%;
+      font-size: 18px;
+    }
+
+    .input::placeholder {
+      color: #7685da;
+    }
+  }
+
+  .inputWrapper:has(input:focus) {
+    border: 2px solid #e26bec;
   }
 }
 
@@ -29,13 +53,14 @@
   overflow: auto;
 
   .listItem {
-    @include centered-flex;
-    height: 60px;
+    @include centered-items;
+    justify-content: space-between;
+    height: 55px;
     margin-bottom: 3px;
     padding-left: 20px;
     border: 1px solid rgb(48, 47, 47);
-    background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);
-    font-size: 26px;
+    background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+    font-size: 24px;
     color: #232946;
     cursor: pointer;
     box-shadow: inset 0 0 0 0 #e1e8f3;

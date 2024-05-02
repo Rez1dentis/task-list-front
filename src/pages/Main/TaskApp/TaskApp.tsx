@@ -62,7 +62,10 @@ export const TaskApp = (): JSX.Element => {
     <>
       <div className={classes.header}>
         <div className={classes.title}>Task List</div>
-        <div className={classes.icon}>
+        <div className={classes.addContaioner}>
+          <div className={classes.inputWrapper}>
+            <input className={classes.input} placeholder="Введите задачу" type="text" />
+          </div>
           <HiOutlinePlus
             onClick={() => isOpenModal()}
             style={{ width: 45, height: 45, color: 'white', cursor: 'pointer' }}
@@ -87,7 +90,7 @@ export const TaskApp = (): JSX.Element => {
                   <div className={classes.iconsBlock}>
                     <AiOutlineEdit onClick={() => isOpenModal(task)} style={{ marginRight: 15 }} />
                     <RiDeleteBinLine
-                      style={{ width: 27, height: 27 }}
+                      style={{ width: 23, height: 23 }}
                       onClick={() => deleteTaskHandler(task.id)}
                     />
                   </div>
