@@ -39,13 +39,12 @@ export const TaskApp = (): JSX.Element => {
     if (inputValue.trim() !== '') {
       setTasks([...tasks, newTask]);
       setinputValue('');
+      setTimeout(() => {
+        if (listBoxRef.current) {
+          listBoxRef.current.scrollTop = listBoxRef.current.scrollHeight;
+        }
+      }, 0);
     }
-
-    setTimeout(() => {
-      if (listBoxRef.current) {
-        listBoxRef.current.scrollTop = listBoxRef.current.scrollHeight;
-      }
-    }, 0);
   };
 
   const editHandler = () => {
