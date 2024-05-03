@@ -25,7 +25,7 @@ interface IProps {
   editTaskHandler: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
-export const TaskModal = ({
+export const EditTaskModal = ({
   open,
   onClose,
   inputValue,

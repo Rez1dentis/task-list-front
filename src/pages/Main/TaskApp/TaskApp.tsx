@@ -7,7 +7,7 @@ import { Reorder } from 'framer-motion';
 import { ITask } from '../../../models/taskListModel';
 import { HiOutlinePlus } from 'react-icons/hi';
 import { tasksData } from './mockData';
-import { TaskModal } from '../../TaskModal/TaskModal';
+import { EditTaskModal } from '../../EditTaskModal/EditTaskModal';
 import { v4 as uuidv4 } from 'uuid';
 
 export const TaskApp = (): JSX.Element => {
@@ -15,7 +15,10 @@ export const TaskApp = (): JSX.Element => {
   const [tasks, setTasks] = useState<ITask[]>(tasksData);
   const [inputValue, setinputValue] = useState<string>('');
   const [editTask, setEditTask] = useState<ITask | null>(null);
+
   const listBoxRef = useRef<HTMLDivElement>(null);
+
+  const noEmptyField = inputValue.trim() !== '';
 
   const isOpenModal = (task: ITask | null = null) => {
     setOpen(true);
@@ -36,7 +39,7 @@ export const TaskApp = (): JSX.Element => {
       isCompleted: false,
     };
 
-    if (inputValue.trim() !== '') {
+    if (noEmptyField) {
       setTasks([...tasks, newTask]);
       setinputValue('');
       setTimeout(() => {
@@ -48,7 +51,7 @@ export const TaskApp = (): JSX.Element => {
   };
 
   const editTaskHandler = () => {
-    if (editTask) {
+    if (editTask && noEmptyField) {
       setTasks(
         tasks.map((task) => {
           if (task.id === editTask.id) {
@@ -57,10 +60,9 @@ export const TaskApp = (): JSX.Element => {
           return task;
         }),
       );
+      isCloseModal();
     }
-
     setinputValue('');
-    isCloseModal();
   };
 
   const deleteTaskHandler = (id: string) => {
@@ -102,7 +104,7 @@ export const TaskApp = (): JSX.Element => {
             <Reorder.Item key={task.id} value={task}>
               <ul>
                 <li className={classes.listItem}>
-                  <Checkbox size="medium" defaultChecked={task.isCompleted || false} />
+                  <Checkbox size="medium" defaultChecked={task.isCompleted} />
                   <div className={classes.text}>{task.name}</div>
                   <div className={classes.iconsBlock}>
                     <AiOutlineEdit onClick={() => isOpenModal(task)} style={{ marginRight: 20 }} />
@@ -117,7 +119,7 @@ export const TaskApp = (): JSX.Element => {
           ))}
         </Reorder.Group>
       </div>
-      <TaskModal
+      <EditTaskModal
         editTaskHandler={editTaskHandler}
         changeHandler={changeHandler}
         inputValue={inputValue}
