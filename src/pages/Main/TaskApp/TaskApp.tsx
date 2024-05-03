@@ -1,8 +1,8 @@
 import classes from './TaskApp.module.scss';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { RiDeleteBinLine } from 'react-icons/ri';
-import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
-import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'react';
+import { Checkbox } from '@mui/material';
+import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { Reorder } from 'framer-motion';
 import { ITask } from '../../../models/taskListModel';
 import { HiOutlinePlus } from 'react-icons/hi';
@@ -27,7 +27,7 @@ export const TaskApp = (): JSX.Element => {
     setinputValue(e.target.value);
   };
 
-  const addHandler = (e: MouseEvent<SVGElement>) => {
+  const addTaskHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     const newTask: ITask = {
@@ -47,7 +47,7 @@ export const TaskApp = (): JSX.Element => {
     }
   };
 
-  const editHandler = () => {
+  const editTaskHandler = () => {
     if (editTask) {
       setTasks(
         tasks.map((task) => {
@@ -63,7 +63,7 @@ export const TaskApp = (): JSX.Element => {
     isCloseModal();
   };
 
-  const deleteHandler = (id: string) => {
+  const deleteTaskHandler = (id: string) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
@@ -85,10 +85,13 @@ export const TaskApp = (): JSX.Element => {
               onChange={changeHandler}
               placeholder="Введите задачу"
               type="text"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') addTaskHandler(e);
+              }}
             />
           </div>
           <HiOutlinePlus
-            onClick={addHandler}
+            onClick={addTaskHandler}
             style={{ width: 45, height: 45, color: 'white', cursor: 'pointer' }}
           />
         </div>
@@ -99,20 +102,13 @@ export const TaskApp = (): JSX.Element => {
             <Reorder.Item key={task.id} value={task}>
               <ul>
                 <li className={classes.listItem}>
-                  <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <Checkbox size="medium" defaultChecked={task.isCompleted || false} />
-                      }
-                      label=""
-                    />
-                  </FormGroup>
+                  <Checkbox size="medium" defaultChecked={task.isCompleted || false} />
                   <div className={classes.text}>{task.name}</div>
                   <div className={classes.iconsBlock}>
-                    <AiOutlineEdit onClick={() => isOpenModal(task)} style={{ marginRight: 15 }} />
+                    <AiOutlineEdit onClick={() => isOpenModal(task)} style={{ marginRight: 20 }} />
                     <RiDeleteBinLine
                       style={{ width: 23, height: 23 }}
-                      onClick={() => deleteHandler(task.id)}
+                      onClick={() => deleteTaskHandler(task.id)}
                     />
                   </div>
                 </li>
@@ -122,7 +118,7 @@ export const TaskApp = (): JSX.Element => {
         </Reorder.Group>
       </div>
       <TaskModal
-        editHandler={editHandler}
+        editTaskHandler={editTaskHandler}
         changeHandler={changeHandler}
         inputValue={inputValue}
         open={open}

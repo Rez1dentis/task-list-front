@@ -22,7 +22,7 @@ interface IProps {
   onClose: () => void;
   inputValue: string;
   changeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
-  editHandler: (e: MouseEvent<HTMLButtonElement>) => void;
+  editTaskHandler: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const TaskModal = ({
@@ -30,7 +30,7 @@ export const TaskModal = ({
   onClose,
   inputValue,
   changeHandler,
-  editHandler,
+  editTaskHandler,
 }: IProps): JSX.Element => {
   return (
     <div>
@@ -43,7 +43,7 @@ export const TaskModal = ({
             variant="standard"
             fullWidth
           />
-          <Button style={{ marginTop: 15 }} onClick={editHandler} variant="outlined">
+          <Button style={{ marginTop: 15 }} onClick={editTaskHandler} variant="outlined">
             Изменить
           </Button>
         </Box>
