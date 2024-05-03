@@ -2,7 +2,7 @@ import classes from './TaskApp.module.scss';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { Checkbox } from '@mui/material';
-import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { Reorder } from 'framer-motion';
 import { ITask } from '../../../models/taskListModel';
 import { HiOutlinePlus } from 'react-icons/hi';
@@ -27,7 +27,7 @@ export const TaskApp = (): JSX.Element => {
     setinputValue(e.target.value);
   };
 
-  const addTaskHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+  const addTaskHandler = (e: any) => {
     e.preventDefault();
 
     const newTask: ITask = {
