@@ -71,6 +71,11 @@
     .text {
       flex-grow: 1;
     }
+    .completedTask {
+      flex-grow: 1;
+      text-decoration: line-through;
+      color: green;
+    }
 
     .iconsBlock {
       display: flex;

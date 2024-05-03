@@ -58,6 +58,16 @@ export const TaskApp = (): JSX.Element => {
     setinputValue('');
   };
 
+  const completedHandler = (id: string) => {
+    const updatedTask = tasks.map((task) => {
+      if (task.id === id) {
+        task.isCompleted = !task.isCompleted;
+      }
+      return task;
+    });
+    setTasks(updatedTask);
+  };
+
   const deleteTaskHandler = (id: string) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
@@ -97,8 +107,15 @@ export const TaskApp = (): JSX.Element => {
             <Reorder.Item key={task.id} value={task}>
               <ul>
                 <li className={classes.listItem}>
-                  <Checkbox size="medium" defaultChecked={task.isCompleted} />
-                  <div className={classes.text}>{task.name}</div>
+                  <Checkbox
+                    onClick={() => completedHandler(task.id)}
+                    size="medium"
+                    color="success"
+                    checked={task.isCompleted}
+                  />
+                  <div className={`${task.isCompleted ? classes.completedTask : classes.text}`}>
+                    {task.name}
+                  </div>
                   <div className={classes.iconsBlock}>
                     <AiOutlineEdit onClick={() => isOpenModal(task)} style={{ marginRight: 20 }} />
                     <RiDeleteBinLine
