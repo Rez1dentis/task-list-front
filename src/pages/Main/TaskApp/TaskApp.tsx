@@ -2,21 +2,18 @@ import classes from './TaskApp.module.scss';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { Checkbox } from '@mui/material';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Reorder } from 'framer-motion';
 import { ITask } from '../../../models/taskListModel';
 import { HiOutlinePlus } from 'react-icons/hi';
-import { tasksData } from './mockData';
 import { EditTaskModal } from '../../EditTaskModal/EditTaskModal';
 import { v4 as uuidv4 } from 'uuid';
 
 export const TaskApp = (): JSX.Element => {
   const [open, setOpen] = useState(false);
-  const [tasks, setTasks] = useState<ITask[]>(tasksData);
+  const [tasks, setTasks] = useState<ITask[]>([]);
   const [inputValue, setinputValue] = useState<string>('');
   const [editTask, setEditTask] = useState<ITask | null>(null);
-
-  const listBoxRef = useRef<HTMLDivElement>(null);
 
   const noEmptyField = inputValue.trim() !== '';
 
@@ -37,16 +34,12 @@ export const TaskApp = (): JSX.Element => {
       id: uuidv4(),
       name: inputValue,
       isCompleted: false,
+      date: new Date(),
     };
 
     if (noEmptyField) {
-      setTasks([...tasks, newTask]);
+      setTasks([...tasks, newTask].sort((a, b) => b.date.getTime() - a.date.getTime()));
       setinputValue('');
-      setTimeout(() => {
-        if (listBoxRef.current) {
-          listBoxRef.current.scrollTop = listBoxRef.current.scrollHeight;
-        }
-      }, 0);
     }
   };
 
@@ -98,7 +91,7 @@ export const TaskApp = (): JSX.Element => {
           />
         </div>
       </div>
-      <div className={classes.listBox} ref={listBoxRef}>
+      <div className={classes.listBox}>
         <Reorder.Group values={tasks} onReorder={setTasks}>
           {tasks.map((task) => (
             <Reorder.Item key={task.id} value={task}>
