@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { Button, TextField } from '@mui/material';
-import { ChangeEvent, MouseEvent } from 'react';
+import { ChangeEvent } from 'react';
 
 const style = {
   position: 'absolute' as const,
@@ -22,7 +22,7 @@ interface IProps {
   onClose: () => void;
   inputValue: string;
   changeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
-  editTaskHandler: (e: MouseEvent<HTMLButtonElement>) => void;
+  editTaskHandler: (e: any) => void;
 }
 
 export const EditTaskModal = ({
@@ -42,6 +42,9 @@ export const EditTaskModal = ({
             id="standard-basic"
             variant="standard"
             fullWidth
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') editTaskHandler(e);
+            }}
           />
           <Button style={{ marginTop: 15 }} onClick={editTaskHandler} variant="outlined">
             Изменить
