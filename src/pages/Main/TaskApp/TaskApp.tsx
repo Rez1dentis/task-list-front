@@ -82,7 +82,7 @@ export const TaskApp = (): JSX.Element => {
     <>
       <div className={classes.header}>
         <div className={classes.title}>Task List</div>
-        <div className={classes.addContaioner}>
+        <div className={classes.addContainer}>
           <div className={classes.inputWrapper}>
             <input
               value={inputValue}
