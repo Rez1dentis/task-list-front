@@ -1,7 +1,8 @@
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { Button, TextField } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { ITask } from '../../../../models/taskListModel';
 
 const style = {
   position: 'absolute' as const,
@@ -20,15 +21,38 @@ const style = {
 interface IProps {
   open: boolean;
   onClose: () => void;
+  editTaskHandler: (id: string, updatedTask: string) => void;
+  editTask: ITask | null;
 }
 
-export const EditTaskModal = ({ open, onClose }: IProps): JSX.Element => {
-  const [editValue, setEditValue] = useState('');
+export const EditTaskModal = ({
+  open,
+  onClose,
+  editTask,
+  editTaskHandler,
+}: IProps): JSX.Element => {
+  const [editValue, setEditValue] = useState<string>('');
+
+  const submitHandler = (e: any) => {
+    e.preventDefault();
+
+    if (editTask && editValue.trim() !== '') {
+      editTaskHandler(editTask.id, editValue);
+      onClose();
+      setEditValue('');
+    }
+  };
+
+  useEffect(() => {
+    if (editTask) {
+      setEditValue(editTask.name);
+    }
+  }, [editTask]);
 
   return (
-    <div>
-      <Modal open={open} onClose={onClose}>
-        <Box sx={style}>
+    <Modal open={open} onClose={onClose}>
+      <Box sx={style}>
+        <form onSubmit={submitHandler}>
           <TextField
             value={editValue}
             onChange={(e) => setEditValue(e.target.value)}
@@ -36,11 +60,11 @@ export const EditTaskModal = ({ open, onClose }: IProps): JSX.Element => {
             variant="standard"
             fullWidth
           />
-          <Button style={{ marginTop: 15 }} variant="outlined">
+          <Button onClick={submitHandler} style={{ marginTop: 15 }} variant="outlined">
             Изменить
           </Button>
-        </Box>
-      </Modal>
-    </div>
+        </form>
+      </Box>
+    </Modal>
   );
 };
