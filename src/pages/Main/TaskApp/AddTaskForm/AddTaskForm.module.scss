@@ -1,0 +1,34 @@
+@mixin centered-items {
+  display: flex;
+  align-items: center;
+}
+
+.addContainer {
+  @include centered-items;
+  justify-content: center;
+
+  .inputWrapper {
+    @include centered-items;
+    width: 100%;
+    max-width: 400px;
+    margin-right: 5px;
+    border: 2px solid #7685da;
+    border-radius: 3px;
+    position: relative;
+    transition: all 0.35s ease-out;
+
+    .input {
+      padding: 8px;
+      width: 100%;
+      font-size: 18px;
+    }
+
+    .input::placeholder {
+      color: #7685da;
+    }
+  }
+
+  .inputWrapper:has(input:focus) {
+    border: 2px solid #e26bec;
+  }
+}

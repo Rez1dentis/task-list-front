@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { Button, TextField } from '@mui/material';
-import { ChangeEvent } from 'react';
+import { useState } from 'react';
 
 const style = {
   position: 'absolute' as const,
@@ -20,33 +20,23 @@ const style = {
 interface IProps {
   open: boolean;
   onClose: () => void;
-  inputValue: string;
-  changeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
-  editTaskHandler: (e: any) => void;
 }
 
-export const EditTaskModal = ({
-  open,
-  onClose,
-  inputValue,
-  changeHandler,
-  editTaskHandler,
-}: IProps): JSX.Element => {
+export const EditTaskModal = ({ open, onClose }: IProps): JSX.Element => {
+  const [editValue, setEditValue] = useState('');
+
   return (
     <div>
       <Modal open={open} onClose={onClose}>
         <Box sx={style}>
           <TextField
-            value={inputValue}
-            onChange={changeHandler}
+            value={editValue}
+            onChange={(e) => setEditValue(e.target.value)}
             id="standard-basic"
             variant="standard"
             fullWidth
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') editTaskHandler(e);
-            }}
           />
-          <Button style={{ marginTop: 15 }} onClick={editTaskHandler} variant="outlined">
+          <Button style={{ marginTop: 15 }} variant="outlined">
             Изменить
           </Button>
         </Box>
