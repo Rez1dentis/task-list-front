@@ -10,9 +10,6 @@ import { EditTaskModal } from './EditTaskModal/EditTaskModal';
 interface IProps {
   tasks: ITask[];
   setTasks: Dispatch<SetStateAction<ITask[]>>;
-  onOpen: () => void;
-  onClose: () => void;
-  open: boolean;
   deleteTaskHandler: (id: string) => void;
   completeHandler: (id: string) => void;
   editTaskHandler: (id: string, updatedTask: string) => void;
@@ -21,14 +18,19 @@ interface IProps {
 export const ListItem = ({
   tasks,
   setTasks,
-  onOpen,
-  onClose,
-  open,
   deleteTaskHandler,
   completeHandler,
   editTaskHandler,
 }: IProps): JSX.Element => {
+  const [open, setOpen] = useState<boolean>(false);
   const [editTask, setEditTask] = useState<ITask | null>(null);
+
+  const onOpen = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
 
   return (
     <div className={classes.listBox}>

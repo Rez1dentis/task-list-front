@@ -5,15 +5,7 @@ import { AddTaskForm } from './AddTaskForm/AddTaskForm';
 import { ListItem } from './ListItem/ListItem';
 
 export const TaskApp = (): JSX.Element => {
-  const [open, setOpen] = useState<boolean>(false);
   const [tasks, setTasks] = useState<ITask[]>([]);
-
-  const onOpen = () => {
-    setOpen(true);
-  };
-  const onClose = () => {
-    setOpen(false);
-  };
 
   const createTaskHandler = (newTask: ITask) => {
     setTasks([...tasks, newTask].sort((a, b) => b.date.getTime() - a.date.getTime()));
@@ -51,12 +43,9 @@ export const TaskApp = (): JSX.Element => {
         <AddTaskForm createTaskHandler={createTaskHandler} />
       </div>
       <ListItem
-        onClose={onClose}
-        open={open}
         completeHandler={completeHandler}
         deleteTaskHandler={deleteTaskHandler}
         editTaskHandler={editTaskHandler}
-        onOpen={onOpen}
         tasks={tasks}
         setTasks={setTasks}
       />

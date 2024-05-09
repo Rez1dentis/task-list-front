@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { Button, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { ITask } from '../../../../models/taskListModel';
+import { ITask } from '../../../../../models/taskListModel';
 
 const style = {
   position: 'absolute' as const,
