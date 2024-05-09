@@ -5,7 +5,7 @@ import { RiDeleteBinLine } from 'react-icons/ri';
 import { Checkbox } from '@mui/material';
 import { Reorder } from 'framer-motion';
 import { ITask } from '../../../../models/taskListModel';
-import { EditTaskModal } from '../EditTaskModal/EditTaskModal';
+import { EditTaskModal } from './EditTaskModal/EditTaskModal';
 
 interface IProps {
   tasks: ITask[];
