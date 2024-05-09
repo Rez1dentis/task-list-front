@@ -22,14 +22,14 @@ export const ListItem = ({
   completeHandler,
   editTaskHandler,
 }: IProps): JSX.Element => {
-  const [open, setOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [editTask, setEditTask] = useState<ITask | null>(null);
 
   const onOpen = () => {
-    setOpen(true);
+    setIsModalOpen(true);
   };
   const onClose = () => {
-    setOpen(false);
+    setIsModalOpen(false);
   };
 
   return (
@@ -69,7 +69,7 @@ export const ListItem = ({
       <EditTaskModal
         editTaskHandler={editTaskHandler}
         editTask={editTask}
-        open={open}
+        isModalOpen={isModalOpen}
         onClose={onClose}
       />
     </div>

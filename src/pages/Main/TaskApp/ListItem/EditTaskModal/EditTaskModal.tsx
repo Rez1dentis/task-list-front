@@ -19,14 +19,14 @@ const style = {
 };
 
 interface IProps {
-  open: boolean;
+  isModalOpen: boolean;
   onClose: () => void;
   editTaskHandler: (id: string, updatedTask: string) => void;
   editTask: ITask | null;
 }
 
 export const EditTaskModal = ({
-  open,
+  isModalOpen,
   onClose,
   editTask,
   editTaskHandler,
@@ -50,7 +50,7 @@ export const EditTaskModal = ({
   }, [editTask]);
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={isModalOpen} onClose={onClose}>
       <Box sx={style}>
         <form onSubmit={submitHandler}>
           <TextField
