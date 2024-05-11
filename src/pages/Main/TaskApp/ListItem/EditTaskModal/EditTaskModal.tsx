@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { Button, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { ITask } from '../../../../models/taskListModel';
+import { ITask } from '../../../../../models/taskListModel';
 
 const style = {
   position: 'absolute' as const,
@@ -19,14 +19,14 @@ const style = {
 };
 
 interface IProps {
-  open: boolean;
+  isModalOpen: boolean;
   onClose: () => void;
   editTaskHandler: (id: string, updatedTask: string) => void;
   editTask: ITask | null;
 }
 
 export const EditTaskModal = ({
-  open,
+  isModalOpen,
   onClose,
   editTask,
   editTaskHandler,
@@ -50,7 +50,7 @@ export const EditTaskModal = ({
   }, [editTask]);
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={isModalOpen} onClose={onClose}>
       <Box sx={style}>
         <form onSubmit={submitHandler}>
           <TextField
