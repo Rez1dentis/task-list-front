@@ -2,7 +2,7 @@ import classes from './ListItem.module.scss';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { RiDeleteBinLine } from 'react-icons/ri';
-import { Checkbox } from '@mui/material';
+import { Checkbox, IconButton } from '@mui/material';
 import { Reorder } from 'framer-motion';
 import { ITask } from '../../../../models/taskListModel';
 import { EditTaskModal } from './EditTaskModal/EditTaskModal';
@@ -49,17 +49,18 @@ export const ListItem = ({
                   {task.name}
                 </div>
                 <div className={classes.iconsBlock}>
-                  <AiOutlineEdit
+                  <IconButton
+                    color="inherit"
                     onClick={() => {
                       onOpen();
                       setEditTask(task);
                     }}
-                    style={{ marginRight: 20 }}
-                  />
-                  <RiDeleteBinLine
-                    onClick={() => deleteTaskHandler(task.id)}
-                    style={{ width: 23, height: 23 }}
-                  />
+                  >
+                    <AiOutlineEdit />
+                  </IconButton>
+                  <IconButton color="inherit" onClick={() => deleteTaskHandler(task.id)}>
+                    <RiDeleteBinLine style={{ width: 23, height: 23 }} />
+                  </IconButton>
                 </div>
               </li>
             </ul>

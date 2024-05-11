@@ -1,8 +1,9 @@
-import { v4 as uuidv4 } from 'uuid';
 import classes from './AddTaskForm.module.scss';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
-import { HiOutlinePlus } from 'react-icons/hi';
 import { ITask } from '../../../../models/taskListModel';
+import { IconButton } from '@mui/material';
 
 interface IProps {
   createTaskHandler: (newTask: ITask) => void;
@@ -38,10 +39,9 @@ export const AddTaskForm = ({ createTaskHandler }: IProps): JSX.Element => {
           type="text"
         />
       </div>
-      <HiOutlinePlus
-        onClick={submitHandler}
-        style={{ width: 45, height: 45, color: 'white', cursor: 'pointer' }}
-      />
+      <IconButton onClick={submitHandler}>
+        <AddCircleOutlineIcon sx={{ width: 40, height: 40, color: 'aliceblue' }} />
+      </IconButton>
     </form>
   );
 };
