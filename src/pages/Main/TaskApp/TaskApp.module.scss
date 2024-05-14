@@ -1,5 +1,18 @@
-
 .header {
+  height: 140px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-color: #c3d5eb;
+  text-align: center;
+
+  .title {
+    flex-grow: 1;
+    font-size: 52px;
+    color: #232946;
+  }
+}
+
+.header.dark {
   height: 140px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
