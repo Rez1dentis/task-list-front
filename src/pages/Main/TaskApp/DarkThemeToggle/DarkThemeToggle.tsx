@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import DarkModeToggle from 'react-dark-mode-toggle';
+import { useTheme } from '../../../../app/hooks/useTheme';
 
 export const DarkThemeToggle = (): JSX.Element => {
-  const [isDarkMode, setIsDarkMode] = useState(() => false);
+  const { isDark, toggleTheme } = useTheme();
 
-  return <DarkModeToggle onChange={setIsDarkMode} checked={isDarkMode} size={60} />;
+  return <DarkModeToggle onChange={toggleTheme} checked={isDark} size={60} />;
 };

@@ -4,8 +4,11 @@ import { ITask } from '../../../models/taskListModel';
 import { AddTaskForm } from './AddTaskForm/AddTaskForm';
 import { ListItem } from './ListItem/ListItem';
 import { DarkThemeToggle } from './DarkThemeToggle/DarkThemeToggle';
+import { useTheme } from '../../../app/hooks/useTheme';
 
 export const TaskApp = (): JSX.Element => {
+  const { isDark } = useTheme();
+
   const [tasks, setTasks] = useState<ITask[]>([]);
 
   const createTaskHandler = (newTask: ITask) => {
@@ -42,7 +45,7 @@ export const TaskApp = (): JSX.Element => {
       <div className={classes.toggle}>
         <DarkThemeToggle />
       </div>
-      <div className={classes.header}>
+      <div className={`${classes.header} ${isDark ? classes.headerDark : ''}`}>
         <div className={classes.title}>Task List</div>
       </div>
       <AddTaskForm createTaskHandler={createTaskHandler} />
