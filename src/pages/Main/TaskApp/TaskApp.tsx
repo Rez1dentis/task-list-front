@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { ITask } from '../../../models/taskListModel';
 import { AddTaskForm } from './AddTaskForm/AddTaskForm';
 import { ListItem } from './ListItem/ListItem';
+import { DarkThemeToggle } from './DarkThemeToggle/DarkThemeToggle';
 
 export const TaskApp = (): JSX.Element => {
   const [tasks, setTasks] = useState<ITask[]>([]);
@@ -38,10 +39,13 @@ export const TaskApp = (): JSX.Element => {
 
   return (
     <>
+      <div className={classes.toggle}>
+        <DarkThemeToggle />
+      </div>
       <div className={classes.header}>
         <div className={classes.title}>Task List</div>
-        <AddTaskForm createTaskHandler={createTaskHandler} />
       </div>
+      <AddTaskForm createTaskHandler={createTaskHandler} />
       <ListItem
         completeHandler={completeHandler}
         deleteTaskHandler={deleteTaskHandler}

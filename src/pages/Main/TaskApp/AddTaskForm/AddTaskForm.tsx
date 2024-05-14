@@ -40,7 +40,7 @@ export const AddTaskForm = ({ createTaskHandler }: IProps): JSX.Element => {
         />
       </div>
       <IconButton onClick={submitHandler}>
-        <AddCircleOutlineIcon sx={{ width: 38, height: 38, color: '#232946' }} />
+        <AddCircleOutlineIcon sx={{ width: 35, height: 35, color: '#7685da' }} />
       </IconButton>
     </form>
   );

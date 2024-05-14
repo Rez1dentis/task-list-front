@@ -4,6 +4,8 @@
 }
 
 .addContainer {
+  margin-bottom: 15px;
+
   @include centered-items;
   justify-content: center;
 
