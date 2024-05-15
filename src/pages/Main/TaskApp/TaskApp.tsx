@@ -4,7 +4,7 @@ import { ITask } from '../../../models/taskListModel';
 import { AddTaskForm } from './AddTaskForm/AddTaskForm';
 import { ListItem } from './ListItem/ListItem';
 import { DarkThemeToggle } from './DarkThemeToggle/DarkThemeToggle';
-import { useTheme } from '../../../app/hooks/useTheme';
+import { useTheme } from '../../../shared/hooks/useTheme';
 
 export const TaskApp = (): JSX.Element => {
   const { isDark } = useTheme();

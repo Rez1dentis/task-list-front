@@ -1,6 +1,6 @@
 import classes from './App.module.scss';
 import { TaskApp } from '../pages/Main/TaskApp/TaskApp';
-import { useTheme } from './hooks/useTheme';
+import { useTheme } from '../shared/hooks/useTheme';
 
 export const App = (): JSX.Element => {
   const { isDark } = useTheme();

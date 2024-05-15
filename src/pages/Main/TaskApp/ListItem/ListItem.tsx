@@ -6,7 +6,7 @@ import { Checkbox, IconButton } from '@mui/material';
 import { Reorder } from 'framer-motion';
 import { ITask } from '../../../../models/taskListModel';
 import { EditTaskModal } from './EditTaskModal/EditTaskModal';
-import { useTheme } from '../../../../app/hooks/useTheme';
+import { useTheme } from '../../../../shared/hooks/useTheme';
 
 interface IProps {
   tasks: ITask[];

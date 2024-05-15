@@ -1,6 +1,6 @@
 import { ReactNode, useState, useEffect } from 'react';
-import { ThemeContext } from '../context/ThemeContext';
-import { getInitialTheme } from '../utils/getInitialTheme';
+import { ThemeContext } from '../../store/context/ThemeContext';
+import { getInitialTheme } from '../../shared/utils/getInitialTheme';
 
 interface IProps {
   children: ReactNode;
