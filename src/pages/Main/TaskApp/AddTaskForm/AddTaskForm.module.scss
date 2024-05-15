@@ -33,4 +33,10 @@
   .inputWrapper:has(input:focus) {
     border: 2px solid #e26bec;
   }
+
+  .addButton {
+    width: 35;
+    height: 35;
+    color: '#7685da';
+  }
 }

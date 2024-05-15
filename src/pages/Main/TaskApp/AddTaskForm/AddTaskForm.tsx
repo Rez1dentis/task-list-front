@@ -4,12 +4,15 @@ import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 import { ITask } from '../../../../models/taskListModel';
 import { IconButton } from '@mui/material';
+import { useTheme } from '../../../../app/hooks/useTheme';
 
 interface IProps {
   createTaskHandler: (newTask: ITask) => void;
 }
 
 export const AddTaskForm = ({ createTaskHandler }: IProps): JSX.Element => {
+  const { isDark } = useTheme();
+
   const [inputValue, setInputValue] = useState<string>('');
 
   const submitHandler = (e: any) => {
@@ -40,7 +43,9 @@ export const AddTaskForm = ({ createTaskHandler }: IProps): JSX.Element => {
         />
       </div>
       <IconButton onClick={submitHandler}>
-        <AddCircleOutlineIcon sx={{ width: 35, height: 35, color: '#7685da' }} />
+        <AddCircleOutlineIcon
+          sx={{ width: 35, height: 35, color: isDark ? 'aliceblue' : '#7685da' }}
+        />
       </IconButton>
     </form>
   );
