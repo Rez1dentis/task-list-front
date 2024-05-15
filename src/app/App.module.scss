@@ -1,4 +1,4 @@
-.mainContainer {
+@mixin main-container {
   min-width: 800px;
   border: 1px solid rgb(63, 61, 61);
   border-radius: 15px;
@@ -6,10 +6,19 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #7685da;
   box-shadow: 8px 8px 29px 0px rgba(0, 0, 0, 0.75);
 
   .footer {
     height: 20px;
   }
+}
+
+.mainContainer {
+  @include main-container;
+  background-color: #c3d5eb;
+}
+
+.mainContainerDark {
+  @include main-container;
+  background-color: #7685da;
 }

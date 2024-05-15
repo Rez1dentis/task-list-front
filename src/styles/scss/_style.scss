@@ -1,0 +1,16 @@
+@import '_normalize.scss';
+
+@mixin root {
+  width: 100vw;
+  height: 100vh;
+}
+
+#root {
+  @include root;
+  background-color: #d8dbe6;
+}
+
+#root.dark {
+  @include root;
+  background-color: #232946;
+}
