@@ -2,16 +2,14 @@ import classes from './AddTaskForm.module.scss';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
-import { ITask } from '../../../../models/taskListModel';
 import { IconButton } from '@mui/material';
 import { useTheme } from '../../../../shared/hooks/useTheme';
+import { useHandler } from '../../../../shared/hooks/useHandler';
 
-interface IProps {
-  createTaskHandler: (newTask: ITask) => void;
-}
-
-export const AddTaskForm = ({ createTaskHandler }: IProps): JSX.Element => {
+export const AddTaskForm = (): JSX.Element => {
   const { isDark } = useTheme();
+
+  const { createTaskHandler } = useHandler();
 
   const [inputValue, setInputValue] = useState<string>('');
 

@@ -1,5 +1,5 @@
 import classes from './ListItem.module.scss';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { Checkbox, IconButton } from '@mui/material';
@@ -7,23 +7,12 @@ import { Reorder } from 'framer-motion';
 import { ITask } from '../../../../models/taskListModel';
 import { EditTaskModal } from './EditTaskModal/EditTaskModal';
 import { useTheme } from '../../../../shared/hooks/useTheme';
+import { useHandler } from '../../../../shared/hooks/useHandler';
 
-interface IProps {
-  tasks: ITask[];
-  setTasks: Dispatch<SetStateAction<ITask[]>>;
-  deleteTaskHandler: (id: string) => void;
-  completeHandler: (id: string) => void;
-  editTaskHandler: (id: string, updatedTask: string) => void;
-}
-
-export const ListItem = ({
-  tasks,
-  setTasks,
-  deleteTaskHandler,
-  completeHandler,
-  editTaskHandler,
-}: IProps): JSX.Element => {
+export const ListItem = (): JSX.Element => {
   const { isDark } = useTheme();
+
+  const { tasks, setTasks, completeHandler, deleteTaskHandler } = useHandler();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [editTask, setEditTask] = useState<ITask | null>(null);
@@ -77,12 +66,7 @@ export const ListItem = ({
         </Reorder.Group>
       )}
 
-      <EditTaskModal
-        editTaskHandler={editTaskHandler}
-        editTask={editTask}
-        isModalOpen={isModalOpen}
-        onClose={onClose}
-      />
+      <EditTaskModal editTask={editTask} isModalOpen={isModalOpen} onClose={onClose} />
     </div>
   );
 };

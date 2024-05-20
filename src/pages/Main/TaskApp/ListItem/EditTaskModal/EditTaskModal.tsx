@@ -3,6 +3,7 @@ import Modal from '@mui/material/Modal';
 import { Button, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { ITask } from '../../../../../models/taskListModel';
+import { useHandler } from '../../../../../shared/hooks/useHandler';
 
 const style = {
   position: 'absolute' as const,
@@ -21,16 +22,12 @@ const style = {
 interface IProps {
   isModalOpen: boolean;
   onClose: () => void;
-  editTaskHandler: (id: string, updatedTask: string) => void;
   editTask: ITask | null;
 }
 
-export const EditTaskModal = ({
-  isModalOpen,
-  onClose,
-  editTask,
-  editTaskHandler,
-}: IProps): JSX.Element => {
+export const EditTaskModal = ({ isModalOpen, onClose, editTask }: IProps): JSX.Element => {
+  const { editTaskHandler } = useHandler();
+
   const [editValue, setEditValue] = useState<string>('');
 
   const submitHandler = (e: any) => {

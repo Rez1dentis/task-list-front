@@ -5,7 +5,7 @@ export const useTheme = () => {
   const context = useContext(ThemeContext);
 
   if (!context) {
-    throw new Error('context error');
+    throw new Error('Context Theme error');
   }
 
   return context;
