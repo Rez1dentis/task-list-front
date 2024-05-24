@@ -1,6 +1,4 @@
 import classes from './TaskApp.module.scss';
-// import { useState } from 'react';
-// import { ITask } from '../../../models/taskListModel';
 import { AddTaskForm } from './AddTaskForm/AddTaskForm';
 import { ListItem } from './ListItem/ListItem';
 import { DarkThemeToggle } from './DarkThemeToggle/DarkThemeToggle';
