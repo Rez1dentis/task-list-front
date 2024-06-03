@@ -7,21 +7,28 @@ import { Reorder } from 'framer-motion';
 import { ITask } from '../../../../models/taskListModel';
 import { EditTaskModal } from './EditTaskModal/EditTaskModal';
 import { useTheme } from '../../../../shared/hooks/useTheme';
-import { useHandler } from '../../../../shared/hooks/useHandler';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../../../store/redux/store';
+import { completeTask, deleteTask, reorderTasks } from '../../../../store/redux/slices/taskSlice';
 
 export const ListItem = (): JSX.Element => {
   const { isDark } = useTheme();
 
-  const { tasks, setTasks, completeHandler, deleteTaskHandler } = useHandler();
-
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [editTask, setEditTask] = useState<ITask | null>(null);
+  const [editedTask, setEditedTask] = useState<ITask | null>(null);
+
+  const tasks = useSelector((state: RootState) => state.tasks.tasks);
+  const dispatch = useDispatch<AppDispatch>();
 
   const onOpen = () => {
     setIsModalOpen(true);
   };
   const onClose = () => {
     setIsModalOpen(false);
+  };
+
+  const handleReorder = (newTask: ITask[]) => {
+    dispatch(reorderTasks(newTask));
   };
 
   return (
@@ -31,13 +38,13 @@ export const ListItem = (): JSX.Element => {
           Нет задач
         </div>
       ) : (
-        <Reorder.Group values={tasks} onReorder={setTasks}>
+        <Reorder.Group values={tasks} onReorder={handleReorder}>
           {tasks.map((task) => (
             <Reorder.Item key={task.id} value={task}>
               <ul>
                 <li className={classes.listItem}>
                   <Checkbox
-                    onClick={() => completeHandler(task.id)}
+                    onClick={() => dispatch(completeTask(task.id))}
                     size="medium"
                     color="success"
                     checked={task.isCompleted}
@@ -50,12 +57,12 @@ export const ListItem = (): JSX.Element => {
                       color="inherit"
                       onClick={() => {
                         onOpen();
-                        setEditTask(task);
+                        setEditedTask(task);
                       }}
                     >
                       <AiOutlineEdit />
                     </IconButton>
-                    <IconButton color="inherit" onClick={() => deleteTaskHandler(task.id)}>
+                    <IconButton color="inherit" onClick={() => dispatch(deleteTask(task.id))}>
                       <RiDeleteBinLine style={{ width: 23, height: 23 }} />
                     </IconButton>
                   </div>
@@ -66,7 +73,7 @@ export const ListItem = (): JSX.Element => {
         </Reorder.Group>
       )}
 
-      <EditTaskModal editTask={editTask} isModalOpen={isModalOpen} onClose={onClose} />
+      <EditTaskModal editedTask={editedTask} isModalOpen={isModalOpen} onClose={onClose} />
     </div>
   );
 };

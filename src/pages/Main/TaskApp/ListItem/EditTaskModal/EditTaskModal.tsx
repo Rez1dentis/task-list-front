@@ -3,7 +3,9 @@ import Modal from '@mui/material/Modal';
 import { Button, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { ITask } from '../../../../../models/taskListModel';
-import { useHandler } from '../../../../../shared/hooks/useHandler';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../../../../store/redux/store';
+import { editTask } from '../../../../../store/redux/slices/taskSlice';
 
 const style = {
   position: 'absolute' as const,
@@ -22,29 +24,29 @@ const style = {
 interface IProps {
   isModalOpen: boolean;
   onClose: () => void;
-  editTask: ITask | null;
+  editedTask: ITask | null;
 }
 
-export const EditTaskModal = ({ isModalOpen, onClose, editTask }: IProps): JSX.Element => {
-  const { editTaskHandler } = useHandler();
-
+export const EditTaskModal = ({ isModalOpen, onClose, editedTask }: IProps): JSX.Element => {
   const [editValue, setEditValue] = useState<string>('');
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const submitHandler = (e: any) => {
     e.preventDefault();
 
-    if (editTask && editValue.trim() !== '') {
-      editTaskHandler(editTask.id, editValue);
+    if (editedTask && editValue.trim() !== '') {
+      dispatch(editTask({ id: editedTask.id, name: editValue }));
       onClose();
       setEditValue('');
     }
   };
 
   useEffect(() => {
-    if (editTask) {
-      setEditValue(editTask.name);
+    if (editedTask) {
+      setEditValue(editedTask.name);
     }
-  }, [editTask]);
+  }, [editedTask]);
 
   return (
     <Modal open={isModalOpen} onClose={onClose}>
