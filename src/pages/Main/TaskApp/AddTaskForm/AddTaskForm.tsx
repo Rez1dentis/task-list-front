@@ -1,30 +1,23 @@
 import classes from './AddTaskForm.module.scss';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 import { IconButton } from '@mui/material';
 import { useTheme } from '../../../../shared/hooks/useTheme';
-import { useHandler } from '../../../../shared/hooks/useHandler';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../../../store/redux/store';
+import { createTask } from '../../../../store/redux/slices/taskSlice';
 
 export const AddTaskForm = (): JSX.Element => {
   const { isDark } = useTheme();
 
-  const { createTaskHandler } = useHandler();
-
   const [inputValue, setInputValue] = useState<string>('');
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-
-    const newTask = {
-      id: uuidv4(),
-      name: inputValue,
-      isCompleted: false,
-      date: new Date(),
-    };
-
     if (inputValue.trim() !== '') {
-      createTaskHandler(newTask);
+      dispatch(createTask(inputValue));
       setInputValue('');
     }
   };
