@@ -1,7 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { ITask } from '../../../models/taskListModel';
+import { ITask, ITaskState } from '../../../models/taskListModel';
 import { v4 as uuidv4 } from 'uuid';
-import { ITaskState } from '../../../models/taskStateModel';
 
 const initialState: ITaskState = {
   tasks: [],

@@ -4,3 +4,7 @@ export interface ITask {
   isCompleted: boolean;
   date: string;
 }
+
+export interface ITaskState {
+  tasks: ITask[];
+}

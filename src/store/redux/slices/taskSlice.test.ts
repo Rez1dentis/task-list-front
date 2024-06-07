@@ -1,5 +1,4 @@
-import { ITask } from '../../../models/taskListModel';
-import { ITaskState } from '../../../models/taskStateModel';
+import { ITask, ITaskState } from '../../../models/taskListModel';
 import taskReducer, {
   createTask,
   deleteTask,
