@@ -1,5 +1,5 @@
 import classes from './ListItem.module.scss';
-import { useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { Checkbox, IconButton } from '@mui/material';
@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../../store/redux/store';
 import { completeTask, deleteTask, reorderTasks } from '../../../../store/redux/slices/taskSlice';
 
-export const ListItem = (): JSX.Element => {
+export const ListItem = memo((): JSX.Element => {
   const { isDark } = useTheme();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -20,12 +20,13 @@ export const ListItem = (): JSX.Element => {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
   const dispatch = useDispatch<AppDispatch>();
 
-  const onOpen = () => {
+  const onOpen = useCallback(() => {
     setIsModalOpen(true);
-  };
-  const onClose = () => {
+  }, []);
+
+  const onClose = useCallback(() => {
     setIsModalOpen(false);
-  };
+  }, []);
 
   const handleReorder = (newTask: ITask[]) => {
     dispatch(reorderTasks(newTask));
@@ -76,4 +77,6 @@ export const ListItem = (): JSX.Element => {
       <EditTaskModal editedTask={editedTask} isModalOpen={isModalOpen} onClose={onClose} />
     </div>
   );
-};
+});
+
+ListItem.displayName = 'ListItem';

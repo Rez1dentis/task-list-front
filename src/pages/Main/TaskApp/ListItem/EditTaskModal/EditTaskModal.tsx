@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { Button, TextField } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { ITask } from '../../../../../models/taskListModel';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../../../store/redux/store';
@@ -27,7 +27,7 @@ interface IProps {
   editedTask: ITask | null;
 }
 
-export const EditTaskModal = ({ isModalOpen, onClose, editedTask }: IProps): JSX.Element => {
+export const EditTaskModal = memo(({ isModalOpen, onClose, editedTask }: IProps): JSX.Element => {
   const [editValue, setEditValue] = useState<string>('');
 
   const dispatch = useDispatch<AppDispatch>();
@@ -66,4 +66,6 @@ export const EditTaskModal = ({ isModalOpen, onClose, editedTask }: IProps): JSX
       </Box>
     </Modal>
   );
-};
+});
+
+EditTaskModal.displayName = 'EditTaskModal';
