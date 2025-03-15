@@ -1,0 +1,86 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "react-hooks",
+    "sort-imports-es6-autofix",
+    "testing-library",
+    "jest-dom",
+    "unused-imports"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended"
+  ],
+  "rules": {
+    "react/prop-types": "off",
+    "react/display-name": "off",
+    "sort-imports-es6-autofix/sort-imports-es6": [
+      1,
+      {
+        "ignoreCase": false,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+      }
+    ],
+    "react/jsx-sort-props": [
+      2,
+      {
+        "callbacksLast": true,
+        "shorthandFirst": false,
+        "shorthandLast": true,
+        "ignoreCase": true,
+        "noSortAlphabetically": false
+      }
+    ],
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["warn"],
+    "no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
+      "extends": ["plugin:testing-library/react", "plugin:jest-dom/recommended"],
+      "rules": {
+        "testing-library/await-async-query": "error",
+        "testing-library/no-await-sync-query": "error",
+        "testing-library/no-dom-import": "off",
+        "testing-library/prefer-screen-queries": "off",
+        "jest-dom/prefer-checked": "warn",
+        "jest-dom/prefer-empty": "warn",
+        "jest-dom/prefer-enabled-disabled": "warn",
+        "jest-dom/prefer-focus": "warn",
+        "jest-dom/prefer-in-document": "warn",
+        "jest-dom/prefer-required": "warn",
+        "jest-dom/prefer-to-have-attribute": "warn",
+        "jest-dom/prefer-to-have-class": "warn",
+        "jest-dom/prefer-to-have-style": "warn",
+        "jest-dom/prefer-to-have-text-content": "warn",
+        "jest-dom/prefer-to-have-value": "warn"
+      }
+    }
+  ]
+}
